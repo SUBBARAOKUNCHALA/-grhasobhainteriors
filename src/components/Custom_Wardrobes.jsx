@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import wardrobeImg from "../assets/word.jpg"; // replace with your actual image
-import "./CustomWardrobes.css";
+import "./Customwardrobes.css";
 import { useState } from "react";
 import ConsultationModal from "./ConsultationModal";
 const features = [
