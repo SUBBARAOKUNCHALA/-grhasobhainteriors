@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import "./hero.css";
+import "./Hero.css";
 import Sideimg from "../assets/home.jpg";
 import ConsultationModal from "./ConsultationModal";
 
