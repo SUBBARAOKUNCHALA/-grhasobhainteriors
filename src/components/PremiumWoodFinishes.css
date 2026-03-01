@@ -1,0 +1,380 @@
+/* ═══════════════════════════════════════════
+   Premium Wood Finishes Section
+   Same bg + colours as Hero, MK, CW
+   Content LEFT — Image RIGHT
+═══════════════════════════════════════════ */
+
+.pw-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 60% 55% at 90% 20%, rgba(26, 92, 92, 0.26) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 50% at 5%  80%, rgba(201, 147, 58, 0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 35% 35% at 55% 55%, rgba(26, 92, 92, 0.12) 0%, transparent 55%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 80px 100px;
+  font-family: 'Outfit', sans-serif;
+  color: var(--white);
+}
+
+/* ── Orbs ── */
+.pw-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pw-orb-1 {
+  width: 380px; height: 380px;
+  background: rgba(26, 92, 92, 0.22);
+  top: -60px; right: -60px;
+}
+
+.pw-orb-2 {
+  width: 260px; height: 260px;
+  background: rgba(201, 147, 58, 0.14);
+  bottom: 100px; left: -30px;
+}
+
+.pw-orb-3 {
+  width: 200px; height: 200px;
+  background: rgba(201, 147, 58, 0.08);
+  top: 40%; right: 30%;
+}
+
+/* ── Eyebrow ── */
+.pw-eyebrow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 56px;
+}
+
+.pw-eyebrow-line {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+/* ── Inner two-column layout ── */
+.pw-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 70px;
+  max-width: 1300px;
+  width: 100%;
+}
+
+/* ── LEFT — Content ── */
+.pw-content-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* Title */
+.pw-title {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1.05;
+}
+
+.pw-title-thin {
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 300;
+  color: var(--white-dim);
+}
+
+.pw-title-bold {
+  font-size: clamp(38px, 4.5vw, 62px);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--white) 40%, var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Description */
+.pw-desc {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--white-dim);
+  max-width: 480px;
+}
+
+/* Wood type chips */
+.pw-wood-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pw-chips-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0.8;
+}
+
+.pw-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pw-chip {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  color: var(--white-dim);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  cursor: default;
+}
+
+.pw-chip:hover {
+  background: rgba(201, 147, 58, 0.12);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+/* Feature grid */
+.pw-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.pw-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 16px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.pw-feature:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(201, 147, 58, 0.3);
+}
+
+.pw-feature-icon {
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border-radius: 9px;
+  color: #1a1a1a;
+  font-size: 16px;
+}
+
+.pw-feature-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.3px;
+  margin-bottom: 5px;
+}
+
+.pw-feature-desc {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--white-dim);
+}
+
+/* CTA */
+.pw-cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.pw-btn-primary {
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #1a1a1a;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 24px rgba(201, 147, 58, 0.35);
+  white-space: nowrap;
+}
+
+.pw-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(201, 147, 58, 0.5);
+}
+
+.pw-btn-ghost {
+  text-decoration: none;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--white);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+
+.pw-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ── RIGHT — Image ── */
+.pw-image-col {
+  flex: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pw-image-frame {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  border-radius: 24px;
+  overflow: visible;
+}
+
+/* Warm gold gradient border — bottom-right like CW */
+.pw-image-frame::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  background: linear-gradient(315deg, var(--gold), transparent 60%);
+  z-index: -1;
+}
+
+.pw-image-frame img {
+  width: 100%;
+  height: 500px;
+  display: block;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow: var(--shadow);
+}
+
+/* Floating stats card — bottom LEFT */
+.pw-stats-card {
+  position: absolute;
+  bottom: -24px;
+  left: -24px;
+  background: rgba(13, 43, 43, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 18px 24px;
+  display: flex;
+  gap: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.pw-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pw-stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1;
+}
+
+.pw-stat-label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  white-space: nowrap;
+}
+
+/* Natural badge — top right of image */
+.pw-grain-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(13, 43, 43, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 147, 58, 0.35);
+  border-radius: 30px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--gold-light);
+}
+
+.pw-grain-badge i {
+  font-size: 13px;
+  color: var(--gold);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1000px) {
+  .pw-section { padding: 60px 40px 80px; }
+  .pw-inner { gap: 48px; }
+}
+
+@media (max-width: 860px) {
+  .pw-section { padding: 60px 24px 80px; }
+  .pw-inner {
+    flex-direction: column-reverse;
+  }
+  .pw-image-col { width: 100%; }
+  .pw-image-frame { max-width: 100%; }
+  .pw-image-frame img { height: 300px; }
+  .pw-stats-card { left: -10px; bottom: -16px; }
+  .pw-features { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .pw-features { grid-template-columns: 1fr; }
+  .pw-stats-card { gap: 16px; padding: 14px 16px; }
+  .pw-chips { gap: 6px; }
+}

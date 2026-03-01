@@ -1,0 +1,422 @@
+/* ═══════════════════════════════════════════
+   GRHA SOBHA — Hero Section
+   Scroll-enabled, no overlapping, production-grade
+═══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;700&family=Outfit:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg:           #0d2b2b;
+  --teal:         #1a5c5c;
+  --gold:         #c9933a;
+  --gold-light:   #e8b86d;
+  --white:        #f5f0eb;
+  --white-dim:    rgba(245, 240, 235, 0.65);
+  --glass:        rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --shadow:       0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;  /* smooth anchor scrolling */
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;        /* ✅ NOT height: 100vh */
+  overflow-x: hidden;       /* block horizontal bleed only */
+  background-color: var(--bg);
+  font-family: 'Outfit', sans-serif;
+  color: var(--white);
+}
+
+/* ── Hero wrapper ── */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;        /* ✅ fills screen, allows growth */
+  overflow-x: hidden;       /* ✅ NOT overflow: hidden — lets page scroll */
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(26, 92, 92, 0.35) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(201, 147, 58, 0.12) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Decorative Orbs ── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-1 {
+  width: 500px; height: 500px;
+  background: rgba(26, 92, 92, 0.3);
+  top: -100px; right: -100px;
+}
+
+.orb-2 {
+  width: 300px; height: 300px;
+  background: rgba(201, 147, 58, 0.15);
+  bottom: 80px; left: 60px;
+}
+
+.orb-3 {
+  width: 200px; height: 200px;
+  background: rgba(26, 92, 92, 0.2);
+  top: 50%; left: 45%;
+}
+
+/* ── Inner Layout ── */
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  padding: 60px 80px;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ── LEFT ── */
+.hero-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;               /* consistent spacing between all blocks */
+}
+
+/* Brand */
+.hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 14px;
+  padding: 14px 20px;
+  width: fit-content;
+}
+
+.brand-icon {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border-radius: 10px;
+  color: #1a1a1a;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brand-name {
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 3px;
+  color: var(--white);
+}
+
+.brand-tagline {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* Headline */
+.hero-headline {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1.05;
+}
+
+.headline-thin {
+  font-size: clamp(32px, 3.5vw, 52px);
+  font-weight: 300;
+  color: var(--white-dim);
+}
+
+.headline-bold {
+  font-size: clamp(44px, 5vw, 72px);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--white) 40%, var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Services label */
+.services-label {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0.8;
+  margin-bottom: -16px;     /* pull buttons closer to label */
+}
+
+/* Services buttons */
+.service-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn-service {
+  text-decoration: none;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--white);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.8px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+
+.btn-service:hover {
+  background: rgba(201, 147, 58, 0.15);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+/* CTA */
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.btn-primary {
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #1a1a1a;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 24px rgba(201, 147, 58, 0.35);
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(201, 147, 58, 0.5);
+}
+
+.btn-ghost {
+  text-decoration: none;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--white);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ── RIGHT ── */
+.hero-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-frame {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 24px;
+  overflow: visible;
+}
+
+.image-frame::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, var(--gold), transparent 60%);
+  z-index: -1;
+}
+
+.image-frame img {
+  width: 120%;
+  height: 440px;
+  display: block;
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  object-fit: cover;
+}
+
+/* Badge */
+.image-badge {
+  position: absolute;
+  bottom: -18px;
+  left: -18px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #1a1a1a;
+  border-radius: 14px;
+  padding: 14px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  min-width: 90px;
+}
+
+.badge-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.badge-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 3px;
+  white-space: nowrap;
+}
+
+/* ── Contact Bar ── */
+.hero-contact-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px 40px;
+  background: rgba(255, 255, 255, 0.04);
+  border-top: 1px solid var(--glass-border);
+  font-size: 13px;
+  color: var(--white-dim);
+  letter-spacing: 0.5px;
+  flex-wrap: wrap;
+}
+
+.hero-contact-bar i {
+  color: var(--gold);
+  margin-right: 6px;
+}
+
+.bar-divider {
+  width: 1px; height: 16px;
+  background: var(--glass-border);
+  flex-shrink: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hero-inner {
+    flex-direction: column;
+    padding: 40px 24px 48px;
+    gap: 36px;
+    align-items: flex-start;
+  }
+
+  .hero-right {
+    width: 100%;
+  }
+
+  .image-frame {
+    max-width: 100%;
+  }
+
+  .image-badge {
+    bottom: -14px;
+    left: -10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-left {
+    gap: 22px;
+  }
+
+  .hero-contact-bar {
+    font-size: 11px;
+    gap: 12px;
+  }
+
+  .bar-divider {
+    display: none;
+  }
+}
+
+/* ── Inline contact info (under brand) ── */
+.hero-contact-inline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--white-dim);
+  letter-spacing: 0.3px;
+}
+
+.hero-contact-inline i {
+  color: var(--gold);
+  margin-right: 5px;
+}
+
+.hero-contact-inline .bar-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--glass-border);
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .hero-contact-inline .bar-divider {
+    display: none;
+  }
+  .hero-contact-inline {
+    gap: 8px;
+    font-size: 11px;
+  }
+}
