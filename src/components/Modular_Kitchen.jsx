@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import kitchenImg from "../assets/Kitchen.avif";
-import "./ModularKitchen.css";
+import "./Modularkitchen.css";
 import { useState } from "react";
 import ConsultationModal from "./ConsultationModal";
 const features = [
