@@ -11,52 +11,30 @@ export default function ConsultationModal({ isOpen, onClose }) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxnfXHF1kahnA8F4e4IBIE33brmuzYUGsGYcwnXXbCVTIb0KbgCELxzJ47kmS5DHTpQ/exec"; // ← paste your URL
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("sending");
 
-    // EmailJS setup — see instructions below
-    const SERVICE_ID  = "YOUR_SERVICE_ID";
-    const TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-    const PUBLIC_KEY  = "YOUR_PUBLIC_KEY";
-
-    const templateParams = {
-      from_name:  form.name,
-      from_email: form.email,
-      phone:      form.phone,
-      to_email:   "grhasobhainteriors@gmail.com",
-      message: `
-New Consultation Request from Grha Sobha Website
-
-Name  : ${form.name}
-Email : ${form.email}
-Phone : ${form.phone}
-
-This customer is interested in home interior design services.
-Please reach out to them at your earliest convenience.
-
-— Grha Sobha Website
-      `.trim(),
-    };
-
     try {
-      const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      await fetch(SCRIPT_URL, {
         method: "POST",
+        mode: "no-cors", // Google Apps Script requires this
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          service_id:      SERVICE_ID,
-          template_id:     TEMPLATE_ID,
-          user_id:         PUBLIC_KEY,
-          template_params: templateParams,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
         }),
       });
-      setStatus(res.ok ? "success" : "error");
-      if (res.ok) setForm({ name: "", email: "", phone: "" });
+      // no-cors means we can't read the response, so assume success
+      setStatus("success");
+      setForm({ name: "", email: "", phone: "" });
     } catch {
       setStatus("error");
     }
   };
-
   const handleClose = () => {
     onClose();
     setTimeout(() => setStatus("idle"), 400);
@@ -81,8 +59,8 @@ Please reach out to them at your earliest convenience.
             <motion.div
               className="modal-wrapper"
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0,  scale: 1    }}
-              exit={{    opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 40, scale: 0.95 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <button className="modal-close" onClick={handleClose}>
@@ -143,7 +121,7 @@ Please reach out to them at your earliest convenience.
                         <i className="fa-solid fa-envelope input-icon" />
                         <input id="email" name="email" type="email"
                           placeholder="you@example.com"
-                          value={form.email} onChange={handleChange} required />
+                          value={form.email} onChange={handleChange} />
                       </div>
                     </div>
 

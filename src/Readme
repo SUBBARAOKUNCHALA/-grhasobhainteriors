@@ -1,0 +1,179 @@
+Email Sending Process from Google Sheet 
+
+Step 1 — Create a new Google Sheet
+
+    1.Open your browser → go to sheets.google.com
+    2.Click the big "+" button (Blank spreadsheet)
+    3.At the top left, click "Untitled spreadsheet" and rename it to Grha Sobha Leads
+
+
+Step 2 — Open Apps Script
+
+    1.In the top menu bar look for "Extensions"
+    2.Click Extensions → a dropdown opens
+    3.Click "Apps Script" — a new tab opens that looks like a code editor
+
+
+Step 3 — Paste the code
+
+    1.In the new tab you'll see a file called Code.gs on the left side
+    2.There's already some code in the editor like function myFunction() { }
+    3.Select all that existing code (Ctrl+A) and delete it
+    4.Paste the script code I gave you above
+
+    Code.gs code //////
+    -------------------
+
+    const RECIPIENT_EMAIL = "grhasobhainteriors@gmail.com";
+    const SHEET_NAME = "Leads";
+
+    // Receives POST from React
+    function doPost(e) {
+    try {
+        const data = JSON.parse(e.postData.contents);
+        const ss = SpreadsheetApp.getActiveSpreadsheet();
+        let sheet = ss.getSheetByName(SHEET_NAME);
+
+        if (!sheet) {
+        sheet = ss.insertSheet(SHEET_NAME);
+        sheet.appendRow(["Timestamp", "Name", "Email", "Phone"]);
+        const header = sheet.getRange(1, 1, 1, 4);
+        header.setBackground("#0d2b2b");
+        header.setFontColor("#e8b86d");
+        header.setFontWeight("bold");
+        }
+
+        sheet.appendRow([
+        new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+        data.name  || "",
+        data.email || "",
+        data.phone || "",
+        ]);
+
+        return ContentService
+        .createTextOutput(JSON.stringify({ status: "success" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    } catch (err) {
+        return ContentService
+        .createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    }
+
+    // Runs every 24 hours via trigger
+    function sendDailyReport() {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName(SHEET_NAME);
+    if (!sheet) return;
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) { Logger.log("No leads today."); return; }
+
+    const rows = data.slice(1);
+    const tableRows = rows.map(row => `
+        <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:10px 14px;font-size:13px;color:#555;">${row[0]}</td>
+        <td style="padding:10px 14px;font-size:13px;font-weight:600;color:#222;">${row[1]}</td>
+        <td style="padding:10px 14px;font-size:13px;color:#555;">${row[2]}</td>
+        <td style="padding:10px 14px;font-size:13px;color:#555;">${row[3]}</td>
+        </tr>`).join("");
+
+    const htmlBody = `
+        <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto;">
+        <div style="background:#0d2b2b;padding:28px 32px;border-radius:12px 12px 0 0;">
+            <h1 style="color:#e8b86d;margin:0;font-size:22px;letter-spacing:2px;">GRHA SOBHA</h1>
+            <p style="color:rgba(245,240,235,0.6);margin:4px 0 0;font-size:12px;letter-spacing:1px;">Interior &amp; Space Designers</p>
+        </div>
+        <div style="background:#f9f6f2;padding:28px 32px;">
+            <h2 style="color:#0d2b2b;margin:0 0 6px;">Daily Consultation Report</h2>
+            <p style="color:#888;margin:0 0 20px;font-size:13px;">
+            ${rows.length} new lead${rows.length > 1 ? "s" : ""} · ${new Date().toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "long" })}
+            </p>
+            <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+            <thead>
+                <tr style="background:#0d2b2b;">
+                <th style="padding:12px 14px;text-align:left;color:#e8b86d;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">Time</th>
+                <th style="padding:12px 14px;text-align:left;color:#e8b86d;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">Name</th>
+                <th style="padding:12px 14px;text-align:left;color:#e8b86d;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">Email</th>
+                <th style="padding:12px 14px;text-align:left;color:#e8b86d;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">Phone</th>
+                </tr>
+            </thead>
+            <tbody>${tableRows}</tbody>
+            </table>
+            <p style="margin:20px 0 0;font-size:12px;color:#aaa;">Sheet has been cleared automatically after this email.</p>
+        </div>
+        <div style="background:#0d2b2b;padding:14px 32px;border-radius:0 0 12px 12px;text-align:center;">
+            <p style="color:rgba(245,240,235,0.4);font-size:11px;margin:0;">grhasobhainteriors@gmail.com · +91 8639709850</p>
+        </div>
+        </div>`;
+
+    MailApp.sendEmail({
+        to: RECIPIENT_EMAIL,
+        subject: `Grha Sobha — ${rows.length} New Lead${rows.length > 1 ? "s" : ""} (${new Date().toLocaleDateString("en-IN")})`,
+        htmlBody: htmlBody,
+    });
+
+    // Clear data rows, keep header
+    if (sheet.getLastRow() > 1) {
+        sheet.deleteRows(2, sheet.getLastRow() - 1);
+    }
+    Logger.log("Done. Sheet cleared.");
+    }
+
+    // Run this to test manually
+    function testSendNow() { sendDailyReport(); }
+
+    Step 4 — Save the script
+
+        1.Press Ctrl + S (or click the 💾 save icon at the top)
+        2.It will ask for a Project name — type Grha Sobha Form and click OK
+
+
+
+    Step 5 — Deploy as Web App
+
+    1.Top right corner — click the blue "Deploy" button
+    2.Click "New deployment"
+    3.On the left side click the ⚙️ gear icon → select "Web app"
+    4.Fill in:
+
+            *Description: Grha Sobha Form Handler
+            *Execute as: Me
+            *Who has access: Anyone
+
+
+    5.Click "Deploy"
+    6.It will ask you to authorize — click "Authorize access"
+    7.Choose your Google account → click "Allow"
+    8.You'll see a screen with "Web app URL" — copy that URL and keep it safe
+
+
+
+    Step 6 — Add the 24hr automatic trigger
+
+    1.On the left sidebar of Apps Script, click the clock icon (Triggers)
+    2.Bottom right — click "+ Add Trigger"
+    3.Set it like this:
+
+    4.Choose which function: sendDailyReport
+    5.Which runs at deployment: Head
+    6.Select event source: Time-driven
+    7.Select type of time: Day timer
+    8.Select time of day: 8am to 9am
+
+
+    9.Click Save
+
+
+
+    Step 7 — Paste the URL into your React code
+    In ConsultationModal.jsx, find this line at the top of handleSubmit:
+    jsconst SCRIPT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+    Replace YOUR_SCRIPT_ID part with the URL you copied in Step 5.
+
+    Step 8 — Test it
+
+    Go back to Apps Script
+    In the function dropdown at the top, select testSendNow
+    Click the ▶️ Run button
+    Check your Gmail — you should receive the report email

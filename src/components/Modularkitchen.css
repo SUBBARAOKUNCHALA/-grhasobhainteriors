@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
    Modular Kitchen Section
-   Inherits Hero CSS variables — same bg, same feel
+   Full responsive: xs → sm → md → lg → xl → xxl
 ═══════════════════════════════════════════ */
 
 /* ── Section wrapper ── */
@@ -91,7 +91,6 @@
   overflow: visible;
 }
 
-/* Gold gradient border */
 .mk-image-frame::before {
   content: '';
   position: absolute;
@@ -243,7 +242,6 @@
   padding-top: 4px;
 }
 
-/* Reuse btn-primary and btn-ghost from Hero.css */
 .mk-section .btn-primary {
   text-decoration: none;
   background: linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -285,47 +283,167 @@
   border-color: rgba(255, 255, 255, 0.25);
 }
 
-/* ── Responsive ── */
-@media (max-width: 1000px) {
+/* ════════════════════════════════════════
+   MEDIA QUERIES
+   xs:     < 480px
+   sm:  480–767px
+   md:  768–1023px
+   lg: 1024–1279px
+   xl: 1280–1535px  ← base styles above
+  xxl:   ≥ 1536px
+════════════════════════════════════════ */
+
+/* ── xxl: Wide screens ≥ 1536px ── */
+@media (min-width: 1536px) {
   .mk-section {
-    padding: 60px 40px 80px;
+    padding: 100px 120px 120px;
   }
+
   .mk-inner {
-    gap: 48px;
+    max-width: 1500px;
+    gap: 100px;
   }
+
+  .mk-eyebrow       { font-size: 12px; margin-bottom: 64px; }
+  .mk-title-thin    { font-size: 50px; }
+  .mk-title-bold    { font-size: 72px; }
+  .mk-desc          { font-size: 16px; max-width: 560px; }
+
+  .mk-image-frame   { max-width: 660px; }
+  .mk-image-frame img { height: 560px; }
+
+  .mk-stats-card    { bottom: -28px; right: -28px; padding: 22px 28px; gap: 28px; }
+  .mk-stat-value    { font-size: 30px; }
+  .mk-stat-label    { font-size: 11px; }
+
+  .mk-feature       { padding: 20px; gap: 16px; }
+  .mk-feature-icon  { width: 44px; height: 44px; font-size: 18px; }
+  .mk-feature-title { font-size: 14px; }
+  .mk-feature-desc  { font-size: 13px; }
+
+  .mk-orb-1 { width: 560px; height: 560px; }
+  .mk-orb-2 { width: 440px; height: 440px; }
 }
 
-@media (max-width: 860px) {
+/* ── lg: Small desktop / laptop 1024–1279px ── */
+@media (min-width: 1024px) and (max-width: 1279px) {
   .mk-section {
-    padding: 60px 24px 80px;
+    padding: 70px 60px 90px;
   }
+
+  .mk-inner         { gap: 50px; }
+  .mk-image-frame   { max-width: 500px; }
+  .mk-image-frame img { height: 420px; }
+  .mk-stats-card    { right: -16px; bottom: -18px; }
+  .mk-desc          { font-size: 14px; }
+}
+
+/* ── md: Tablets 768–1023px ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mk-section {
+    padding: 60px 48px 80px;
+  }
+
+  .mk-inner         { gap: 40px; }
+  .mk-eyebrow       { margin-bottom: 40px; }
+
+  .mk-image-frame   { max-width: 420px; }
+  .mk-image-frame img { height: 380px; }
+
+  .mk-stats-card    { right: -12px; bottom: -16px; padding: 14px 18px; gap: 18px; }
+  .mk-stat-value    { font-size: 22px; }
+  .mk-stat-label    { font-size: 9px; }
+
+  .mk-content-col   { gap: 22px; }
+  .mk-desc          { font-size: 14px; }
+  .mk-features      { gap: 14px; }
+  .mk-feature       { padding: 13px; }
+  .mk-feature-title { font-size: 12px; }
+  .mk-feature-desc  { font-size: 11px; }
+}
+
+/* ── sm: Large phones / landscape 480–767px ── */
+@media (min-width: 480px) and (max-width: 767px) {
+  .mk-section {
+    padding: 50px 28px 70px;
+  }
+
+  .mk-eyebrow       { margin-bottom: 32px; font-size: 10px; }
+
   .mk-inner {
     flex-direction: column;
+    gap: 48px;
   }
-  .mk-image-col {
-    width: 100%;
-  }
-  .mk-image-frame {
-    max-width: 100%;
-  }
-  .mk-image-frame img {
-    height: 320px;
-  }
-  .mk-stats-card {
-    right: -10px;
-    bottom: -16px;
-  }
-  .mk-features {
-    grid-template-columns: 1fr;
-  }
+
+  .mk-image-col     { width: 100%; }
+  .mk-image-frame   { max-width: 100%; }
+  .mk-image-frame img { height: 300px; }
+
+  .mk-stats-card    { right: -10px; bottom: -16px; padding: 12px 16px; gap: 16px; }
+  .mk-stat-value    { font-size: 20px; }
+  .mk-stat-label    { font-size: 9px; }
+
+  .mk-content-col   { gap: 20px; }
+  .mk-desc          { font-size: 14px; max-width: 100%; }
+  .mk-features      { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mk-feature       { padding: 12px; gap: 10px; }
+  .mk-feature-icon  { width: 32px; height: 32px; font-size: 14px; }
+  .mk-feature-title { font-size: 12px; }
+  .mk-feature-desc  { font-size: 11px; }
+
+  .mk-section .btn-primary,
+  .mk-section .btn-ghost { font-size: 13px; padding: 12px 22px; }
 }
 
-@media (max-width: 480px) {
+/* ── xs: Small phones < 480px ── */
+@media (max-width: 479px) {
+  .mk-section {
+    padding: 40px 18px 60px;
+  }
+
+  .mk-eyebrow       { margin-bottom: 28px; font-size: 10px; gap: 10px; }
+  .mk-eyebrow-line  { width: 28px; }
+
+  .mk-inner {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .mk-image-col     { width: 100%; }
+  .mk-image-frame   { max-width: 100%; }
+  .mk-image-frame img { height: 240px; }
+
+  .mk-stats-card {
+    right: -8px; bottom: -14px;
+    padding: 10px 12px;
+    gap: 12px;
+    border-radius: 12px;
+  }
+  .mk-stat-value    { font-size: 18px; }
+  .mk-stat-label    { font-size: 8.5px; letter-spacing: 1px; }
+
+  .mk-content-col   { gap: 18px; }
+  .mk-desc          { font-size: 13px; max-width: 100%; }
+
   .mk-features {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
-  .mk-stats-card {
-    gap: 16px;
-    padding: 14px 16px;
+
+  .mk-feature       { padding: 12px; gap: 10px; }
+  .mk-feature-icon  { width: 32px; height: 32px; font-size: 13px; border-radius: 7px; }
+  .mk-feature-title { font-size: 12px; }
+  .mk-feature-desc  { font-size: 11px; }
+
+  .mk-cta           { flex-direction: column; gap: 10px; }
+  .mk-section .btn-primary,
+  .mk-section .btn-ghost {
+    font-size: 13px;
+    padding: 13px 20px;
+    width: 100%;
+    text-align: center;
   }
+
+  .mk-orb-1 { width: 240px; height: 240px; }
+  .mk-orb-2 { width: 200px; height: 200px; }
 }

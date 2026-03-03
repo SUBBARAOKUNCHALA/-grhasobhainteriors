@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
    GRHA SOBHA — Hero Section
-   Scroll-enabled, no overlapping, production-grade
+   Full responsive: mobile → tablet → desktop → wide
 ═══════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;700&family=Outfit:wght@300;400;500;600&display=swap');
@@ -25,13 +25,13 @@
 }
 
 html {
-  scroll-behavior: smooth;  /* smooth anchor scrolling */
+  scroll-behavior: smooth;
 }
 
 body {
   width: 100%;
-  min-height: 100vh;        /* ✅ NOT height: 100vh */
-  overflow-x: hidden;       /* block horizontal bleed only */
+  min-height: 100vh;
+  overflow-x: hidden;
   background-color: var(--bg);
   font-family: 'Outfit', sans-serif;
   color: var(--white);
@@ -41,8 +41,8 @@ body {
 .hero {
   position: relative;
   width: 100%;
-  min-height: 100vh;        /* ✅ fills screen, allows growth */
-  overflow-x: hidden;       /* ✅ NOT overflow: hidden — lets page scroll */
+  min-height: 100vh;
+  overflow-x: hidden;
   background-color: var(--bg);
   background-image:
     radial-gradient(ellipse 80% 60% at 70% 40%, rgba(26, 92, 92, 0.35) 0%, transparent 65%),
@@ -97,7 +97,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 28px;               /* consistent spacing between all blocks */
+  gap: 28px;
 }
 
 /* Brand */
@@ -145,6 +145,22 @@ body {
   margin-top: 3px;
 }
 
+/* ── Inline contact (under brand) ── */
+.hero-contact-inline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--white-dim);
+  letter-spacing: 0.3px;
+}
+
+.hero-contact-inline i {
+  color: var(--gold);
+  margin-right: 5px;
+}
+
 /* Headline */
 .hero-headline {
   display: flex;
@@ -175,7 +191,7 @@ body {
   text-transform: uppercase;
   color: var(--gold-light);
   opacity: 0.8;
-  margin-bottom: -16px;     /* pull buttons closer to label */
+  margin-bottom: -16px;
 }
 
 /* Services buttons */
@@ -217,6 +233,8 @@ body {
 
 .btn-primary {
   text-decoration: none;
+  cursor: pointer;
+  border: none;
   background: linear-gradient(135deg, var(--gold), var(--gold-light));
   color: #1a1a1a;
   font-family: 'Outfit', sans-serif;
@@ -282,7 +300,7 @@ body {
 }
 
 .image-frame img {
-  width: 120%;
+  width: 100%;
   height: 440px;
   display: block;
   border-radius: 24px;
@@ -322,101 +340,173 @@ body {
   white-space: nowrap;
 }
 
-/* ── Contact Bar ── */
-.hero-contact-bar {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  padding: 16px 40px;
-  background: rgba(255, 255, 255, 0.04);
-  border-top: 1px solid var(--glass-border);
-  font-size: 13px;
-  color: var(--white-dim);
-  letter-spacing: 0.5px;
-  flex-wrap: wrap;
-}
-
-.hero-contact-bar i {
-  color: var(--gold);
-  margin-right: 6px;
-}
-
+/* Divider used in contact inline */
 .bar-divider {
-  width: 1px; height: 16px;
+  width: 1px; height: 14px;
   background: var(--glass-border);
   flex-shrink: 0;
 }
 
-/* ── Responsive ── */
-@media (max-width: 900px) {
+/* ════════════════════════════════════════
+   MEDIA QUERIES
+   xs:     < 480px   (small phones)
+   sm:  480–767px    (phones landscape / large phones)
+   md:  768–1023px   (tablets)
+   lg: 1024–1279px   (small desktops / laptops)
+   xl: 1280–1535px   (standard desktop) — base styles above
+  xxl:   ≥ 1536px   (wide / 4K monitors)
+════════════════════════════════════════ */
+
+/* ── xxl: Wide screens ≥ 1536px ── */
+@media (min-width: 1536px) {
+  .hero-inner {
+    max-width: 1500px;
+    padding: 80px 120px;
+    gap: 100px;
+  }
+
+  .brand-name      { font-size: 22px; }
+  .brand-tagline   { font-size: 11px; }
+  .headline-thin   { font-size: 60px; }
+  .headline-bold   { font-size: 84px; }
+
+  .hero-contact-inline { font-size: 13px; gap: 16px; }
+
+  .btn-service     { font-size: 14px; padding: 12px 22px; }
+  .btn-primary     { font-size: 15px; padding: 16px 34px; }
+
+  .image-frame     { max-width: 600px; }
+  .image-frame img { height: 520px; }
+
+  .orb-1 { width: 700px; height: 700px; }
+  .orb-2 { width: 400px; height: 400px; }
+}
+
+/* ── lg: Small desktop / laptop 1024–1279px ── */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hero-inner {
+    padding: 50px 60px;
+    gap: 48px;
+  }
+
+  .headline-thin  { font-size: 40px; }
+  .headline-bold  { font-size: 58px; }
+
+  .image-frame     { max-width: 440px; }
+  .image-frame img { height: 400px; }
+}
+
+/* ── md: Tablets 768–1023px ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-inner {
+    padding: 48px 48px;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .hero-left  { gap: 22px; }
+
+  .brand-name    { font-size: 16px; letter-spacing: 2px; }
+  .brand-tagline { font-size: 9px; }
+
+  .headline-thin  { font-size: 34px; }
+  .headline-bold  { font-size: 50px; }
+
+  .hero-contact-inline { font-size: 11px; gap: 10px; }
+
+  .btn-service  { font-size: 12px; padding: 9px 14px; }
+  .btn-primary  { font-size: 13px; padding: 13px 22px; }
+
+  .image-frame     { max-width: 380px; }
+  .image-frame img { height: 360px; }
+
+  .image-badge  { bottom: -14px; left: -10px; }
+}
+
+/* ── sm: Large phones / landscape 480–767px ── */
+@media (min-width: 480px) and (max-width: 767px) {
   .hero-inner {
     flex-direction: column;
-    padding: 40px 24px 48px;
-    gap: 36px;
+    padding: 36px 28px 48px;
+    gap: 32px;
     align-items: flex-start;
   }
 
-  .hero-right {
-    width: 100%;
+  .hero-left  { gap: 20px; width: 100%; }
+  .hero-right { width: 100%; justify-content: flex-start; }
+
+  .headline-thin  { font-size: 30px; }
+  .headline-bold  { font-size: 44px; }
+
+  .hero-contact-inline {
+    font-size: 11px;
+    gap: 10px;
   }
 
-  .image-frame {
-    max-width: 100%;
+  .hero-contact-inline .bar-divider { display: none; }
+
+  .service-buttons { gap: 8px; }
+  .btn-service     { font-size: 12px; padding: 8px 14px; }
+  .btn-primary     { font-size: 13px; padding: 12px 22px; width: 100%; justify-content: center; }
+
+  .image-frame     { max-width: 100%; }
+  .image-frame img { height: 280px; }
+
+  .image-badge { bottom: -12px; left: -8px; padding: 10px 14px; }
+  .badge-number { font-size: 22px; }
+}
+
+/* ── xs: Small phones < 480px ── */
+@media (max-width: 479px) {
+  .hero-inner {
+    flex-direction: column;
+    padding: 28px 18px 44px;
+    gap: 24px;
+    align-items: flex-start;
   }
+
+  .hero-left  { gap: 18px; width: 100%; }
+  .hero-right { width: 100%; }
+
+  .hero-brand { padding: 10px 14px; gap: 10px; }
+  .brand-icon { width: 36px; height: 36px; font-size: 16px; }
+  .brand-name    { font-size: 14px; letter-spacing: 2px; }
+  .brand-tagline { font-size: 8.5px; }
+
+  .hero-contact-inline {
+    font-size: 10px;
+    gap: 6px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-contact-inline .bar-divider { display: none; }
+
+  .headline-thin  { font-size: 26px; }
+  .headline-bold  { font-size: 38px; }
+
+  .services-label { font-size: 10px; letter-spacing: 2px; }
+
+  .service-buttons { gap: 7px; }
+  .btn-service  { font-size: 11px; padding: 8px 12px; }
+
+  .btn-primary  {
+    font-size: 13px;
+    padding: 13px 20px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .image-frame img { height: 240px; }
 
   .image-badge {
-    bottom: -14px;
-    left: -10px;
+    bottom: -12px; left: -8px;
+    padding: 10px 14px;
+    min-width: 72px;
   }
-}
+  .badge-number { font-size: 20px; }
+  .badge-label  { font-size: 9px; }
 
-@media (max-width: 480px) {
-  .hero-left {
-    gap: 22px;
-  }
-
-  .hero-contact-bar {
-    font-size: 11px;
-    gap: 12px;
-  }
-
-  .bar-divider {
-    display: none;
-  }
-}
-
-/* ── Inline contact info (under brand) ── */
-.hero-contact-inline {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-size: 12px;
-  color: var(--white-dim);
-  letter-spacing: 0.3px;
-}
-
-.hero-contact-inline i {
-  color: var(--gold);
-  margin-right: 5px;
-}
-
-.hero-contact-inline .bar-divider {
-  width: 1px;
-  height: 14px;
-  background: var(--glass-border);
-  flex-shrink: 0;
-}
-
-@media (max-width: 600px) {
-  .hero-contact-inline .bar-divider {
-    display: none;
-  }
-  .hero-contact-inline {
-    gap: 8px;
-    font-size: 11px;
-  }
+  .orb-1 { width: 280px; height: 280px; }
+  .orb-2 { width: 180px; height: 180px; }
+  .orb-3 { display: none; }
 }
