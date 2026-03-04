@@ -11,30 +11,35 @@ export default function ConsultationModal({ isOpen, onClose }) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxnfXHF1kahnA8F4e4IBIE33brmuzYUGsGYcwnXXbCVTIb0KbgCELxzJ47kmS5DHTpQ/exec"; // ← paste your URL
+const API_URL = "https://grhasobhainteriorsbackend.onrender.com/register"; // your Node API
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus("sending");
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setStatus("sending");
 
-    try {
-      await fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors", // Google Apps Script requires this
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-        }),
-      });
-      // no-cors means we can't read the response, so assume success
-      setStatus("success");
-      setForm({ name: "", email: "", phone: "" });
-    } catch {
-      setStatus("error");
-    }
-  };
+  try {
+    await fetch(API_URL, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify({
+        username: form.name,
+        email: form.email,
+        phone: form.phone,
+      }),
+    });
+
+    // Since Node API returns proper response,
+    // but if you want same simple behavior:
+    setStatus("success");
+    setForm({ name: "", email: "", phone: "" });
+
+  } catch (error) {
+    console.log(error)
+    setStatus("error");
+  }
+};
   const handleClose = () => {
     onClose();
     setTimeout(() => setStatus("idle"), 400);
